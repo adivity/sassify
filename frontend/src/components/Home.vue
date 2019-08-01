@@ -22,7 +22,7 @@ export default {
   },
   data() {
     return {
-      name: this.$store.state.auth.user.name
+      name: 'There'
     }
   }
 }

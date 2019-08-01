@@ -1,7 +1,6 @@
 <template>
   <v-container fluid>
     <v-layout row wrap>
-      <Heading :title="$t('signup.TITLE')" />
       <v-flex xs12 sm6 offset-sm3>
         <form @submit.prevent="submit">
           <v-layout column>

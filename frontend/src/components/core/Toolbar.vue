@@ -1,60 +1,67 @@
 <template>
   <div>
-      <v-navigation-drawer
-              v-model="sidebar"
-              class="sidebarBackground"
-              :class="{sidebarBorder: sidebar}"
-              width="230"
-              dark
-              fixed
-              app
-              :clipped="$vuetify.breakpoint.mdAndUp"
-      >
-        <perfect-scrollbar>
-          <v-list>
-
-            <v-list-tile
-              v-for="(item, index) in menuItems"
-              :key="index"
-              :to="{ name: item.link }"
-              exact
-            >
-              <v-list-tile-action>
-                <v-icon>{{ item.icon }}</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>{{ item.title }}</v-list-tile-content>
-            </v-list-tile>
-            <v-list-group v-if="admin" prepend-icon="mdi-lock" no-action>
-              <v-list-tile slot="activator">
-                <v-list-tile-title>{{ $t('adminItems.ADMIN') }}</v-list-tile-title>
-              </v-list-tile>
-              <v-list-tile
+    <v-navigation-drawer
+      v-model="sidebar"
+      class="sidebarBackground"
+      :class="{ sidebarBorder: sidebar }"
+      width="230"
+      dark
+      fixed
+      app
+      :clipped="$vuetify.breakpoint.mdAndUp"
+    >
+      <perfect-scrollbar>
+        <v-list dense rounded>
+          <v-list-item
+            v-for="(item, index) in menuItems"
+            :key="index"
+            :to="{ name: item.link }"
+            color="white"
+            exact
+          >
+            <v-list-item-icon>
+              <v-icon v-text="item.icon"></v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title v-text="item.title"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-group v-if="admin" prepend-icon="lock" no-action>
+              <template v-slot:activator>
+                <v-list-item-content>
+                  <v-list-item-title v-text="$t('adminItems.ADMIN')"></v-list-item-title>
+                </v-list-item-content>
+              </template>
+              <v-list-item
                 v-for="(item, index) in adminItems"
                 :key="index"
                 :to="{ name: item.link }"
-                exact
               >
-                <v-list-tile-content class="d-inline mt-3">
-                  <v-icon>{{ item.icon }}</v-icon>
-                  {{ item.title }}
-                </v-list-tile-content>
-              </v-list-tile>
-            </v-list-group>
+                <v-list-item-icon>
+                  <v-icon v-text="item.icon"></v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title v-text="item.title"></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+          </v-list-group>
 
-            <v-list-tile v-if="isTokenSet" @click="userLogout">
-              <v-list-tile-action>
-                <v-icon>mdi-exit-to-app</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                {{ $t('menuItems.LOGOUT') }}
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list>
-        </perfect-scrollbar>
-      </v-navigation-drawer>
+          <v-list-item v-if="isTokenSet" @click="userLogout">
+          <v-list-item-icon>
+            <v-icon>exit_to_app</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            {{ $t('menuItems.LOGOUT') }}
+          </v-list-item-content>
+        </v-list-item>
+        </v-list>
+      </perfect-scrollbar>
+    </v-navigation-drawer>
 
-    <v-toolbar app fixed :clipped-left="$vuetify.breakpoint.mdAndUp">
-      <v-toolbar-side-icon @click="sidebar = !sidebar"></v-toolbar-side-icon>
+    <v-app-bar app :clipped-left="$vuetify.breakpoint.mdAndUp" >
+      <v-app-bar-nav-icon @click="sidebar = !sidebar">
+        <v-icon>menu</v-icon>
+      </v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase ml-0">
         <div v-resize-text>
           <router-link
@@ -76,7 +83,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn
-          flat
+          text
           v-for="(item, index) in menuItems"
           :key="index"
           :to="{ name: item.link }"
@@ -88,12 +95,14 @@
         </v-btn>
 
         <v-menu v-if="admin" offset-y class="hidden-sm-and-down">
-          <v-btn slot="activator" flat class="btnAdmin">
-            <v-icon>mdi-lock</v-icon>
+          <template v-slot:activator="{ on }">
+          <v-btn v-on="on" text class="btnAdmin">
+            <v-icon>lock</v-icon>
             &nbsp;{{ $t('adminItems.ADMIN') }}
           </v-btn>
+          </template>
           <v-list>
-            <v-list-tile
+            <v-list-item
               active-class="white--text"
               v-for="(item, index) in adminItems"
               :key="index"
@@ -101,27 +110,26 @@
               exact
               :class="[item.class]"
             >
-              <v-list-tile-title>
+              <v-list-item-title>
                 <v-icon>{{ item.icon }}</v-icon>
                 {{ item.title }}
-              </v-list-tile-title>
-            </v-list-tile>
+              </v-list-item-title>
+            </v-list-item>
           </v-list>
         </v-menu>
 
         <v-btn
-          flat
+          text
           v-if="isTokenSet"
           @click="userLogout"
           class="hidden-sm-and-down btnLogout"
         >
-          <v-icon left>mdi-exit-to-app</v-icon>
+          <v-icon left>exit-to-app</v-icon>
           {{ $t('menuItems.LOGOUT') }}
         </v-btn>
-<!--        <LocaleChanger />-->
+        <!--        <LocaleChanger />-->
       </v-toolbar-items>
-    </v-toolbar>
-
+    </v-app-bar>
   </div>
 </template>
 
@@ -173,11 +181,11 @@ export default {
     }
   },
   components: {
-    LocaleChanger,
+    // LocaleChanger,
     PerfectScrollbar
   },
-  created(){
-    if(this.$vuetify.breakpoint.mdAndUp){
+  created() {
+    if (this.$vuetify.breakpoint.mdAndUp) {
       this.sidebar = true
     }
   },
@@ -186,7 +194,7 @@ export default {
   },
   data() {
     return {
-      sidebar: false,
+      sidebar: false
     }
   },
   computed: {
@@ -199,13 +207,13 @@ export default {
         {
           title: this.$t('adminItems.CITIES'),
           link: 'admin-cities',
-          icon: 'mdi-city',
+          icon: 'lock',
           class: 'btnAdminCities'
         },
         {
           title: this.$t('adminItems.USERS'),
           link: 'admin-users',
-          icon: 'mdi-account-supervisor',
+          icon: 'people',
           class: 'btnAdminUsers'
         }
       ]
@@ -222,13 +230,13 @@ export default {
           {
             title: this.$t('menuItems.ABOUT'),
             link: 'about',
-            icon: 'mdi-help-circle-outline',
+            icon: 'add_circle_outline',
             class: 'btnAbout'
           },
           {
             title: this.$t('menuItems.MY_PROFILE'),
             link: 'profile',
-            icon: 'mdi-face',
+            icon: 'face',
             class: 'btnProfile'
           }
         ]
@@ -242,19 +250,19 @@ export default {
         {
           title: this.$t('menuItems.ABOUT'),
           link: 'about',
-          icon: 'mdi-help-circle-outline',
+          icon: 'help',
           class: 'btnAbout'
         },
         {
           title: this.$t('menuItems.LOGIN'),
           link: 'login',
-          icon: 'mdi-lock',
+          icon: 'lock',
           class: 'btnLogin'
         },
         {
           title: this.$t('menuItems.SIGNUP'),
           link: 'signup',
-          icon: 'mdi-plus-circle-outline',
+          icon: 'add_circle_outline',
           class: 'btnLogin'
         }
       ]
@@ -267,17 +275,20 @@ export default {
   }
 }
 </script>
-<style src="vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css"/>
+<style src="vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css" />
 <style>
-  .ps {
-    height: 100%;
-  }
-  .sidebarBackground {
-    background: rgb(46,51,68);
-    background: linear-gradient(176deg, rgba(46,51,68,1) 0%, rgba(47,51,68,1) 100%);
-  }
-  .sidebarBorder {
-    box-shadow: 5px 0px 5px grey;
-
-  }
+.ps {
+  height: 100%;
+}
+.sidebarBackground {
+  background: rgb(46, 51, 68);
+  background: linear-gradient(
+    176deg,
+    rgba(46, 51, 68, 1) 0%,
+    rgba(47, 51, 68, 1) 100%
+  );
+}
+.sidebarBorder {
+  box-shadow: 5px 0px 5px grey;
+}
 </style>

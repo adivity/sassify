@@ -1,5 +1,5 @@
 <template>
-  <v-app light>
+  <v-app>
     <Toolbar />
     <v-content>
       <transition name="fade" mode="out-in">
@@ -11,6 +11,7 @@
 </template>
 
 <script>
+
 import Toolbar from '@/components/core/Toolbar.vue'
 import Footer from '@/components/core/Footer.vue'
 

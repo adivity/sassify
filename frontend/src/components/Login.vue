@@ -1,8 +1,6 @@
 <template>
   <v-container fluid>
     <v-layout row wrap>
-      <Heading :title="$t('login.TITLE')" />
-      <Description :description="$t('login.DESCRIPTION')" />
       <v-flex xs12 sm6 offset-sm3>
         <form @submit.prevent="submit">
           <v-layout column>
@@ -42,9 +40,9 @@
             <v-flex text-xs-center>
               <v-btn
                 :to="{ name: 'forgotPassword' }"
-                color="white"
+                color="blue lighten-3"
                 small
-                flat
+                text
                 class="btnForgotPassword"
                 >{{ $t('login.FORGOT_PASSWORD') }}</v-btn
               >

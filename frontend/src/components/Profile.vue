@@ -1,14 +1,13 @@
 <template>
   <v-container fluid>
     <v-layout row wrap>
-      <Heading :title="$t('myProfile.TITLE')" />
       <v-flex xs12 sm8 offset-sm2>
         <v-dialog v-model="dialog" max-width="400px">
           <template v-slot:activator="{ on }">
             <v-flex text-xs-center>
               <v-btn
                 small
-                flat
+                text
                 v-on="on"
                 @click="triggerChangePassword = true"
                 class="btnChangePassword"
@@ -81,13 +80,13 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="red lighten3" flat @click="close">
+                <v-btn color="red lighten3" text @click="close">
                   {{ $t('dataTable.CANCEL') }}
                 </v-btn>
                 <SubmitButton
                   :text="$t('dataTable.SAVE')"
                   color="yellow lighten3"
-                  flat
+                  text
                 />
               </v-card-actions>
             </form>
