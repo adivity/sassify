@@ -10,9 +10,7 @@
           :timeout="successMessageTimeout"
         >
           {{ successMessage }}
-          <v-btn dark flat @click="showSuccessMessage = false">
-            {{ $t('common.CLOSE') }}
-          </v-btn>
+          <v-btn dark flat @click="showSuccessMessage = false">{{ $t('common.CLOSE') }}</v-btn>
         </v-snackbar>
       </v-flex>
     </v-layout>
@@ -21,7 +19,6 @@
 
 <script>
 import * as types from '@/store/mutation-types'
-
 export default {
   name: 'SuccessMessage',
   computed: {

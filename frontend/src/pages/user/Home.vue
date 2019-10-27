@@ -6,7 +6,8 @@
       </v-flex>
       <v-flex xs12>
         <p>Hello {{name}}</p>
-        
+
+
       </v-flex>
     </v-layout>
   </v-container>

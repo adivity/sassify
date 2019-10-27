@@ -1,19 +1,17 @@
 <template>
   <v-app>
-    <Toolbar />
     <v-content>
       <transition name="fade" mode="out-in">
-        <router-view />
+        <component :is="layout">
+          <router-view />
+        </component>
       </transition>
     </v-content>
-    <Footer />
   </v-app>
 </template>
 
 <script>
-
-import Toolbar from '@/components/core/Toolbar.vue'
-import Footer from '@/components/core/Footer.vue'
+const defaultLayout = 'default'
 
 export default {
   name: 'App',
@@ -56,13 +54,14 @@ export default {
       ]
     }
   },
-  components: {
-    Toolbar,
-    Footer
-  },
+
   computed: {
     appTitle() {
       return this.$store.getters.appTitle
+    },
+    layout() {
+      // eslint-disable-next-line
+      return (this.$route.meta.layout || defaultLayout) + '-layout'
     }
   }
 }

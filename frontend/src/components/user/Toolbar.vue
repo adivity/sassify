@@ -27,38 +27,32 @@
             </v-list-item-content>
           </v-list-item>
           <v-list-group v-if="admin" prepend-icon="lock" no-action>
-              <template v-slot:activator>
-                <v-list-item-content>
-                  <v-list-item-title v-text="$t('adminItems.ADMIN')"></v-list-item-title>
-                </v-list-item-content>
-              </template>
-              <v-list-item
-                v-for="(item, index) in adminItems"
-                :key="index"
-                :to="{ name: item.link }"
-              >
-                <v-list-item-icon>
-                  <v-icon v-text="item.icon"></v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title v-text="item.title"></v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
+            <template v-slot:activator>
+              <v-list-item-content>
+                <v-list-item-title v-text="$t('adminItems.ADMIN')"></v-list-item-title>
+              </v-list-item-content>
+            </template>
+            <v-list-item v-for="(item, index) in adminItems" :key="index" :to="{ name: item.link }">
+              <v-list-item-icon>
+                <v-icon v-text="item.icon"></v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title v-text="item.title"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
           </v-list-group>
 
           <v-list-item v-if="isTokenSet" @click="userLogout">
-          <v-list-item-icon>
-            <v-icon>exit_to_app</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            {{ $t('menuItems.LOGOUT') }}
-          </v-list-item-content>
-        </v-list-item>
+            <v-list-item-icon>
+              <v-icon>exit_to_app</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>{{ $t('menuItems.LOGOUT') }}</v-list-item-content>
+          </v-list-item>
         </v-list>
       </perfect-scrollbar>
     </v-navigation-drawer>
 
-    <v-app-bar app :clipped-left="$vuetify.breakpoint.mdAndUp" >
+    <v-app-bar app :clipped-left="$vuetify.breakpoint.mdAndUp">
       <v-app-bar-nav-icon @click="sidebar = !sidebar">
         <v-icon>menu</v-icon>
       </v-app-bar-nav-icon>
@@ -69,15 +63,13 @@
             tag="span"
             style="cursor: pointer"
             v-if="isTokenSet"
-            >{{ appTitle }}</router-link
-          >
+          >{{ appTitle }}</router-link>
           <router-link
             :to="{ name: 'home' }"
             tag="span"
             style="cursor: pointer"
             v-else
-            >{{ appTitle }}</router-link
-          >
+          >{{ appTitle }}</router-link>
         </div>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -96,10 +88,10 @@
 
         <v-menu v-if="admin" offset-y class="hidden-sm-and-down">
           <template v-slot:activator="{ on }">
-          <v-btn v-on="on" text class="btnAdmin">
-            <v-icon>lock</v-icon>
-            &nbsp;{{ $t('adminItems.ADMIN') }}
-          </v-btn>
+            <v-btn v-on="on" text class="btnAdmin">
+              <v-icon>lock</v-icon>
+              &nbsp;{{ $t('adminItems.ADMIN') }}
+            </v-btn>
           </template>
           <v-list>
             <v-list-item
@@ -118,12 +110,7 @@
           </v-list>
         </v-menu>
 
-        <v-btn
-          text
-          v-if="isTokenSet"
-          @click="userLogout"
-          class="hidden-sm-and-down btnLogout"
-        >
+        <v-btn text v-if="isTokenSet" @click="userLogout" class="hidden-sm-and-down btnLogout">
           <v-icon left>exit-to-app</v-icon>
           {{ $t('menuItems.LOGOUT') }}
         </v-btn>
