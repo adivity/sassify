@@ -1,7 +1,6 @@
 export default [
-  {
-    path: '*',
-    component: () =>
-      import(/* webpackChunkName: "notfound" */ '@/components/NotFound.vue')
-  }
-]
+	{
+		path: '*',
+		component: () => import(/* webpackChunkName: "notfound" */ '@/pages/user/NotFound.vue')
+	}
+];

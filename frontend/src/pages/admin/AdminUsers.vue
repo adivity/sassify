@@ -218,21 +218,43 @@
             :server-items-length="totalItems"
             class="elevation-1"
     >
-      <template v-slot:item.action="{ item }">
-      <v-icon
-        small
-        class="mr-2"
-        @click="editItem(item)"
-      >
-        edit
-      </v-icon>
-      <v-icon
-        small
-        @click="deleteItem(item)"
-      >
-        delete
-      </v-icon>
-    </template>
+      <template v-slot:items="props">
+        <td class="fill-height px-0">
+          <v-layout class="justify-center">
+            <v-tooltip top>
+              <v-btn
+                      icon
+                      class="mx-0"
+                      slot="activator"
+                      @click="editItem(props.item)"
+              >
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+              <span>{{ $t('dataTable.EDIT') }}</span>
+            </v-tooltip>
+            <v-tooltip top>
+              <v-btn
+                      icon
+                      class="mx-0"
+                      slot="activator"
+                      @click="deleteItem(props.item)"
+              >
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+              <span>{{ $t('dataTable.DELETE') }}</span>
+            </v-tooltip>
+          </v-layout>
+        </td>
+        <td>{{ props.item.name }}</td>
+        <td>{{ props.item.email }}</td>
+        <td>{{ roleName(props.item.role) }}</td>
+        <td v-html="trueFalse(props.item.verified)"></td>
+        <td>{{ props.item.city }}</td>
+        <td>{{ props.item.country }}</td>
+        <td>{{ props.item.phone }}</td>
+        <td>{{ getFormat(props.item.createdAt) }}</td>
+        <td>{{ getFormat(props.item.updatedAt) }}</td>
+      </template>
       <template v-slot:pageText="props">
         {{ props.pageStart }} - {{ props.pageStop }} {{ $t('dataTable.OF') }}
         {{ props.itemsLength }}
@@ -287,7 +309,7 @@
         return [
           {
             text: this.$i18n.t('dataTable.ACTIONS'),
-            value: 'action',
+            value: '_id',
             sortable: false,
             width: 100
           },
